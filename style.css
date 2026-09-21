@@ -1,0 +1,45 @@
+#child1{
+   margin-right: 30px;
+   background-color: white;
+   padding-top: 15px;
+   margin-bottom: 20px;
+}
+#child2{
+  margin-right: 30px;
+  background-color: white;
+  padding-top: 10px;
+}
+#child3{
+   background-color: white;
+   padding-top: 10px;
+}
+
+#child1, #child2, #child3{
+    width: 250px;
+    height: 350px;
+    border: 2px solid rgb(194, 192, 192);
+    display: inline-block;
+    border-radius: 10px;
+}
+img{
+    width: 220px;
+    border-radius: 10px;
+}
+h3{
+    font-weight: 900;
+    color: green;
+}
+button{
+    background: linear-gradient(to right, rgb(113, 213, 222), rgb(6, 71, 83));
+    color: white;
+    border-radius: 5px;
+    padding: 7px;
+}
+#parent{
+    padding-top: 100px;
+    padding-left: 200px;
+    text-align: center;
+}
+body{
+     background-color: lightgray;
+}
