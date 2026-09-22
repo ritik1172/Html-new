@@ -1,41 +1,26 @@
 img{
     width: 350px;
     height: 250px;
-    border-radius: 7px;
+    border-radius: 3px;
 }
 #child1, #child2, #child3{
     display: inline-block;
-    background-color: rgb(89, 125, 125);
-    border-radius:7px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-shadow: -10px -10px 15px rgb(95, 201, 204);
+    border: 2px solid cyan;
+    padding: 20px;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: -10px -10px 14px rgb(93, 206, 244), 10px 10px 15px rgb(240, 105, 247);
 }
+
 body{
-    background-color: rgb(38, 37, 39);
+    background-color: black;
     color: white;
 }
 #parent{
+    padding: 100px 0 0 70px;
     text-align: center;
-    padding-top: 50px;
 }
-#child1{
-    margin-right: 20px;
-}
-#child2{
-    margin-right: 20px;
-}
-h3{
-    font-size: 30px;
-}
-p{
-    margin-left: 30px;
-    margin-right: 30px;
-}
+
 button{
-    padding: 17px;
-    border-radius: 6px;
-}
-h4{
-    font-size: 20px;
+    padding: 10px;
 }
