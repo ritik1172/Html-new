@@ -1,45 +1,41 @@
-#child1{
-   margin-right: 30px;
-   background-color: white;
-   padding-top: 15px;
-   margin-bottom: 20px;
-}
-#child2{
-  margin-right: 30px;
-  background-color: white;
-  padding-top: 10px;
-}
-#child3{
-   background-color: white;
-   padding-top: 10px;
-}
-
-#child1, #child2, #child3{
-    width: 250px;
-    height: 350px;
-    border: 2px solid rgb(194, 192, 192);
-    display: inline-block;
-    border-radius: 10px;
-}
 img{
-    width: 220px;
-    border-radius: 10px;
+    width: 350px;
+    height: 250px;
+    border-radius: 7px;
 }
-h3{
-    font-weight: 900;
-    color: green;
-}
-button{
-    background: linear-gradient(to right, rgb(113, 213, 222), rgb(6, 71, 83));
-    color: white;
-    border-radius: 5px;
-    padding: 7px;
-}
-#parent{
-    padding-top: 100px;
-    padding-left: 200px;
-    text-align: center;
+#child1, #child2, #child3{
+    display: inline-block;
+    background-color: rgb(89, 125, 125);
+    border-radius:7px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: -10px -10px 15px rgb(95, 201, 204);
 }
 body{
-     background-color: lightgray;
+    background-color: rgb(38, 37, 39);
+    color: white;
+}
+#parent{
+    text-align: center;
+    padding-top: 50px;
+}
+#child1{
+    margin-right: 20px;
+}
+#child2{
+    margin-right: 20px;
+}
+h3{
+    font-size: 30px;
+}
+p{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+button{
+    padding: 17px;
+    border-radius: 6px;
+}
+h4{
+    font-size: 20px;
 }
