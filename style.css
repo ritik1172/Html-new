@@ -1,28 +1,25 @@
 body{
-    background: linear-gradient(to right, rgb(95, 37, 102), rgb(19, 3, 19));
-    padding-top: 100px;
-    padding-left: 40px;
+    text-align: center;
+    padding-top: 70px;
+    /* background: linear-gradient(to bottom, rgb(230, 232, 115), purple); */
+    background: black;
 }
-#main1, #main2, #main3, #main4{
-    width: 100px;
-    height: 100px;
+
+#main1, #main2, #main3{
     display: inline-block;
-    background-color: black;
-    margin-right: 40px;
+    border: 2px solid rgb(106, 219, 232);
+    color: white;
+    border-radius: 10px;
+    margin-right: 30px;
+    padding: 20px;
+    box-shadow: -10px -10px 15px rgba(98, 207, 226, 0.8), 10px 10px 15px rgba(233, 140, 224, 0.8);
 }
-#main1{
-    border: 1px solid cyan;
-    box-shadow: 7px 7px 15px rgba(109, 222, 234, 0.9);
+
+img{
+    width: 300px;
+    height: 250px;
+    border-radius: 5px;
 }
-#main2{
-    border: 1px solid palegoldenrod;
-    box-shadow: -7px -7px 15px rgba(228, 234, 109, 0.9);
-}
-#main3{
-    border: 1px solid rgb(255, 189, 47);
-    box-shadow: 7px 7px 15px rgba(234, 192, 109, 0.9);
-}
-#main4{
-    border: 1px solid rgb(156, 166, 240);
-    box-shadow: -7px -7px 15px rgba(109, 122, 234, 0.9);
+button{
+    padding: 13px;
 }
