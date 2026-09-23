@@ -1,26 +1,28 @@
-img{
-    width: 350px;
-    height: 250px;
-    border-radius: 3px;
-}
-#child1, #child2, #child3{
-    display: inline-block;
-    border: 2px solid cyan;
-    padding: 20px;
-    margin-right: 20px;
-    border-radius: 10px;
-    box-shadow: -10px -10px 14px rgb(93, 206, 244), 10px 10px 15px rgb(240, 105, 247);
-}
-
 body{
+    background: linear-gradient(to right, rgb(95, 37, 102), rgb(19, 3, 19));
+    padding-top: 100px;
+    padding-left: 40px;
+}
+#main1, #main2, #main3, #main4{
+    width: 100px;
+    height: 100px;
+    display: inline-block;
     background-color: black;
-    color: white;
+    margin-right: 40px;
 }
-#parent{
-    padding: 100px 0 0 70px;
-    text-align: center;
+#main1{
+    border: 1px solid cyan;
+    box-shadow: 7px 7px 15px rgba(109, 222, 234, 0.9);
 }
-
-button{
-    padding: 10px;
+#main2{
+    border: 1px solid palegoldenrod;
+    box-shadow: -7px -7px 15px rgba(228, 234, 109, 0.9);
+}
+#main3{
+    border: 1px solid rgb(255, 189, 47);
+    box-shadow: 7px 7px 15px rgba(234, 192, 109, 0.9);
+}
+#main4{
+    border: 1px solid rgb(156, 166, 240);
+    box-shadow: -7px -7px 15px rgba(109, 122, 234, 0.9);
 }
