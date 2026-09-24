@@ -1,0 +1,35 @@
+body{
+    padding-top: 80px;
+    padding-left: 30px;
+    text-align: center;
+    background: linear-gradient(to right, purple, black);
+    color: rgb(16, 0, 0);
+}
+
+img{
+    width: 300px;
+    height: 250px;
+    border-radius: 10px;
+}
+#main1, #main2, #main3{
+    display: inline-block;
+    border: 2px solid rgb(183, 179, 179);
+    border-radius: 10px;
+    margin-right: 50px;
+    padding: 20px;
+    background-color: rgb(249, 247, 247);
+    box-shadow: 10px 10px 15px rgba(183, 179, 179, 0.8);
+}
+button{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: purple;
+    color: white;
+}
+button:hover{
+    background-color: black;
+    color: white;
+    transition: 0.5s;
+    width: 100px;
+    transform: scale(1.2);
+}
