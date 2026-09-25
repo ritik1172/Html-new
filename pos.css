@@ -1,9 +1,7 @@
 body{
-    padding-top: 80px;
-    padding-left: 30px;
     text-align: center;
-    background: linear-gradient(to right, purple, black);
-    color: rgb(16, 0, 0);
+    padding-top: 50px;
+    background: linear-gradient(to right, rgb(248, 250, 153), purple);
 }
 
 img{
@@ -11,25 +9,19 @@ img{
     height: 250px;
     border-radius: 10px;
 }
-#main1, #main2, #main3{
+div{
     display: inline-block;
-    border: 2px solid rgb(183, 179, 179);
-    border-radius: 10px;
+    border: 2px solid black;
     margin-right: 50px;
-    padding: 20px;
-    background-color: rgb(249, 247, 247);
-    box-shadow: 10px 10px 15px rgba(183, 179, 179, 0.8);
+    padding: 20px 10px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+}
+h2{
+    color: rgb(162, 231, 162);
 }
 button{
     padding: 15px;
     border-radius: 10px;
-    background-color: purple;
-    color: white;
-}
-button:hover{
-    background-color: black;
-    color: white;
-    transition: 0.5s;
-    width: 100px;
-    transform: scale(1.2);
 }
