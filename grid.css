@@ -1,0 +1,48 @@
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+
+.item{
+    background-color: rgb(109, 158, 199);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    font-size: 24px;
+    border: 2px solid rgb(1, 1, 1);
+}
+
+#item1{
+    grid-column: span 3;
+}
+#item2{
+    grid-column: span 2;
+    grid-row: span 2;
+}
+#item6{
+    grid-column: span 2;
+}
+#item7{
+    grid-column: span 3;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 50px;
+    align-items: center;
+}
+ul{
+    display: flex;
+    gap: 25px;
+    
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: white;
+}
