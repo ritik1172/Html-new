@@ -1565,6 +1565,96 @@ A large `z-index` does not always escape the stacking context created by an ance
 Prefer readable selectors and proper source order. Use `!important` only when there is a clear reason.
 
 ---
+# CSS Advanced Concepts
+
+After learning CSS properties up to `z-index`, we will now learn modern CSS layout, responsive design, pseudo-classes, pseudo-elements, transformations, transitions, and basic animations.
+
+---
+
+# Table of Contents
+
+- [1. Flexbox](#1-flexbox)
+  - [Flex Container and Flex Items](#flex-container-and-flex-items)
+  - [flex-direction](#flex-direction)
+  - [justify-content](#justify-content)
+  - [align-items](#align-items)
+  - [flex-wrap](#flex-wrap)
+  - [gap](#gap)
+  - [Flexbox Example](#flexbox-example)
+- [2. CSS Grid](#2-css-grid)
+  - [Creating a Grid](#creating-a-grid)
+  - [grid-template-columns](#grid-template-columns)
+  - [grid-template-rows](#grid-template-rows)
+  - [fr Unit](#fr-unit)
+  - [repeat()](#repeat)
+  - [Grid Gap](#grid-gap)
+  - [Grid Column](#grid-column)
+- [3. Flexbox vs Grid](#3-flexbox-vs-grid)
+- [4. Media Queries](#4-media-queries)
+  - [Basic Syntax](#basic-syntax)
+  - [Responsive Grid](#responsive-grid)
+- [5. Pseudo-Classes](#5-pseudo-classes)
+  - [:hover](#hover)
+  - [:active](#active)
+  - [:focus](#focus)
+  - [:first-child](#first-child)
+  - [:last-child](#last-child)
+  - [:nth-child()](#nth-child)
+  - [:not()](#not)
+- [6. Pseudo-Elements](#6-pseudo-elements)
+  - [::before](#before)
+  - [::after](#after)
+  - [::first-letter](#first-letter)
+  - [::first-line](#first-line)
+  - [::selection](#selection)
+- [7. Pseudo-Class vs Pseudo-Element](#7-pseudo-class-vs-pseudo-element)
+- [8. CSS Transform](#8-css-transform)
+  - [translate()](#translate)
+  - [translateX()](#translatex)
+  - [translateY()](#translatey)
+  - [rotate()](#rotate)
+  - [scale()](#scale)
+  - [scaleX()](#scalex)
+  - [scaleY()](#scaley)
+  - [skew()](#skew)
+  - [Multiple Transformations](#multiple-transformations)
+- [9. CSS Transition](#9-css-transition)
+  - [transition-property](#transition-property)
+  - [transition-duration](#transition-duration)
+  - [transition-timing-function](#transition-timing-function)
+  - [transition-delay](#transition-delay)
+  - [Transition Shorthand](#transition-shorthand)
+- [10. Transform + Transition](#10-transform--transition)
+- [11. Practical Animation Examples](#11-practical-animation-examples)
+- [12. Complete Responsive Card Example](#12-complete-responsive-card-example)
+- [13. Practice Tasks](#13-practice-tasks)
+- [14. Quick Revision](#14-quick-revision)
+
+---
+
+# 1. Flexbox
+
+**Flexbox** stands for **Flexible Box Layout**.
+
+It is a one-dimensional CSS layout system used to arrange elements in:
+
+- Row
+- Column
+
+Flexbox makes it easier to:
+
+- Align elements
+- Distribute space
+- Create navigation bars
+- Center elements
+- Create responsive layouts
+
+### Basic Syntax
+
+```css
+.container {
+    display: flex;
+}
 
 # 10. Best Practices
 
