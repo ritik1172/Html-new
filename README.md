@@ -1565,96 +1565,653 @@ A large `z-index` does not always escape the stacking context created by an ance
 Prefer readable selectors and proper source order. Use `!important` only when there is a clear reason.
 
 ---
-# CSS Advanced Concepts
+## Table of Contents
 
-After learning CSS properties up to `z-index`, we will now learn modern CSS layout, responsive design, pseudo-classes, pseudo-elements, transformations, transitions, and basic animations.
-
----
-
-# Table of Contents
-
-- [1. Flexbox](#1-flexbox)
-  - [Flex Container and Flex Items](#flex-container-and-flex-items)
-  - [flex-direction](#flex-direction)
-  - [justify-content](#justify-content)
-  - [align-items](#align-items)
-  - [flex-wrap](#flex-wrap)
-  - [gap](#gap)
-  - [Flexbox Example](#flexbox-example)
-- [2. CSS Grid](#2-css-grid)
-  - [Creating a Grid](#creating-a-grid)
-  - [grid-template-columns](#grid-template-columns)
-  - [grid-template-rows](#grid-template-rows)
-  - [fr Unit](#fr-unit)
-  - [repeat()](#repeat)
-  - [Grid Gap](#grid-gap)
-  - [Grid Column](#grid-column)
-- [3. Flexbox vs Grid](#3-flexbox-vs-grid)
-- [4. Media Queries](#4-media-queries)
-  - [Basic Syntax](#basic-syntax)
-  - [Responsive Grid](#responsive-grid)
-- [5. Pseudo-Classes](#5-pseudo-classes)
-  - [:hover](#hover)
-  - [:active](#active)
-  - [:focus](#focus)
-  - [:first-child](#first-child)
-  - [:last-child](#last-child)
-  - [:nth-child()](#nth-child)
-  - [:not()](#not)
-- [6. Pseudo-Elements](#6-pseudo-elements)
-  - [::before](#before)
-  - [::after](#after)
-  - [::first-letter](#first-letter)
-  - [::first-line](#first-line)
-  - [::selection](#selection)
-- [7. Pseudo-Class vs Pseudo-Element](#7-pseudo-class-vs-pseudo-element)
-- [8. CSS Transform](#8-css-transform)
-  - [translate()](#translate)
-  - [translateX()](#translatex)
-  - [translateY()](#translatey)
-  - [rotate()](#rotate)
-  - [scale()](#scale)
-  - [scaleX()](#scalex)
-  - [scaleY()](#scaley)
-  - [skew()](#skew)
-  - [Multiple Transformations](#multiple-transformations)
-- [9. CSS Transition](#9-css-transition)
-  - [transition-property](#transition-property)
-  - [transition-duration](#transition-duration)
-  - [transition-timing-function](#transition-timing-function)
-  - [transition-delay](#transition-delay)
-  - [Transition Shorthand](#transition-shorthand)
-- [10. Transform + Transition](#10-transform--transition)
-- [11. Practical Animation Examples](#11-practical-animation-examples)
-- [12. Complete Responsive Card Example](#12-complete-responsive-card-example)
-- [13. Practice Tasks](#13-practice-tasks)
-- [14. Quick Revision](#14-quick-revision)
+- [Flexbox](#flexbox)
+- [CSS Grid](#css-grid)
+- [Media Queries](#media-queries)
+- [Pseudo-classes](#pseudo-classes)
+- [Pseudo-elements](#pseudo-elements)
+- [Transform](#transform)
+- [Transition](#transition)
 
 ---
 
-# 1. Flexbox
+## Flexbox
 
-**Flexbox** stands for **Flexible Box Layout**.
+**Flexbox** (Flexible Box Layout) is a one-dimensional layout system. It arranges items in a **row** or a **column** and controls spacing, alignment and sizing.
 
-It is a one-dimensional CSS layout system used to arrange elements in:
+### Basic setup
 
-- Row
-- Column
-
-Flexbox makes it easier to:
-
-- Align elements
-- Distribute space
-- Create navigation bars
-- Center elements
-- Create responsive layouts
-
-### Basic Syntax
+```html
+<div class="container">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+</div>
+```
 
 ```css
 .container {
-    display: flex;
+  display: flex;
 }
+```
+
+The element with `display: flex` is the **flex container**. Its direct children are **flex items**.
+
+### Main axis and cross axis
+
+- **Main axis**: the direction items are laid out (default: left to right).
+- **Cross axis**: perpendicular to the main axis.
+
+### Container properties
+
+| Property | What it does | Common values |
+|---|---|---|
+| `flex-direction` | Sets the main axis | `row`, `row-reverse`, `column`, `column-reverse` |
+| `flex-wrap` | Allows items to wrap onto new lines | `nowrap`, `wrap`, `wrap-reverse` |
+| `justify-content` | Aligns items along the **main** axis | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` |
+| `align-items` | Aligns items along the **cross** axis | `stretch`, `flex-start`, `center`, `flex-end`, `baseline` |
+| `align-content` | Aligns multiple wrapped lines | `flex-start`, `center`, `space-between`, `stretch` |
+| `gap` | Space between items | `10px`, `1rem`, `10px 20px` |
+
+```css
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+```
+
+### Item properties
+
+| Property | What it does |
+|---|---|
+| `flex-grow` | How much an item grows to fill extra space |
+| `flex-shrink` | How much an item shrinks when space is tight |
+| `flex-basis` | Starting size of the item before growing or shrinking |
+| `flex` | Shorthand for `flex-grow flex-shrink flex-basis` |
+| `align-self` | Overrides `align-items` for a single item |
+| `order` | Changes the visual order of an item (default `0`) |
+
+```css
+.item {
+  flex: 1;            /* grow equally to fill space */
+}
+
+.item-special {
+  flex: 2;            /* takes twice as much space as flex: 1 items */
+  align-self: flex-end;
+  order: -1;          /* moves to the front */
+}
+```
+
+### Example: Perfect centering
+
+```css
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+```
+
+### Example: Simple navbar
+
+```css
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+```
+
+> **Tip:** Use Flexbox for one-dimensional layouts such as navbars, button groups and card rows. Use Grid when you need rows **and** columns together.
+
+---
+
+## CSS Grid
+
+**CSS Grid** is a two-dimensional layout system. It controls **rows and columns** at the same time.
+
+### Basic setup
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-template-rows: 100px 100px;
+  gap: 10px;
+}
+```
+
+### The `fr` unit
+
+`fr` means a **fraction** of the available space.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;  /* middle column is twice as wide */
+}
+```
+
+### `repeat()` and `minmax()`
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);          /* 3 equal columns */
+}
+
+.responsive {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+```
+
+The `responsive` example creates as many columns as will fit, each at least `200px` wide, with no media queries needed.
+
+### Container properties
+
+| Property | What it does |
+|---|---|
+| `grid-template-columns` | Defines column sizes |
+| `grid-template-rows` | Defines row sizes |
+| `gap` / `row-gap` / `column-gap` | Space between rows and columns |
+| `justify-items` | Aligns items horizontally inside their cells |
+| `align-items` | Aligns items vertically inside their cells |
+| `justify-content` | Aligns the whole grid horizontally in the container |
+| `align-content` | Aligns the whole grid vertically in the container |
+| `grid-auto-rows` | Size of rows created automatically |
+
+### Placing items
+
+Grid lines are numbered starting from **1**.
+
+```css
+.header {
+  grid-column: 1 / 4;   /* from line 1 to line 4 (spans 3 columns) */
+}
+
+.sidebar {
+  grid-row: 2 / 4;      /* spans 2 rows */
+}
+
+.wide {
+  grid-column: span 2;  /* span 2 columns from wherever it starts */
+}
+```
+
+### Grid template areas
+
+Name the areas of your layout, then place items by name.
+
+```css
+.layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 80px 1fr 60px;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  min-height: 100vh;
+}
+
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }
+```
+
+### Flexbox vs Grid
+
+| Flexbox | Grid |
+|---|---|
+| One dimension (row **or** column) | Two dimensions (rows **and** columns) |
+| Content-first: size comes from the items | Layout-first: you define the structure |
+| Best for components | Best for page layouts |
+
+---
+
+## Media Queries
+
+**Media queries** apply CSS only when certain conditions are true, such as a minimum screen width. They are the foundation of **responsive design**.
+
+### Syntax
+
+```css
+@media (condition) {
+  /* CSS rules */
+}
+```
+
+### Common examples
+
+```css
+/* Screens 768px wide or more */
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Screens 600px wide or less */
+@media (max-width: 600px) {
+  .menu {
+    display: none;
+  }
+}
+
+/* Between two widths */
+@media (min-width: 600px) and (max-width: 900px) {
+  body {
+    background: lightblue;
+  }
+}
+
+/* Landscape orientation */
+@media (orientation: landscape) {
+  .hero {
+    height: 60vh;
+  }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #111;
+    color: #eee;
+  }
+}
+```
+
+### Mobile-first approach
+
+Write the **mobile styles first**, then use `min-width` to add styles for larger screens.
+
+```css
+/* Mobile (default) */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+```
+
+### Common breakpoints
+
+| Device | Breakpoint |
+|---|---|
+| Small phones | up to `480px` |
+| Phones / small tablets | `600px` |
+| Tablets | `768px` |
+| Laptops | `1024px` |
+| Desktops | `1200px` and above |
+
+> **Important:** Always add this tag in the `<head>` of your HTML, or media queries will not work correctly on phones:
+>
+> ```html
+> <meta name="viewport" content="width=device-width, initial-scale=1.0">
+> ```
+
+---
+
+## Pseudo-classes
+
+A **pseudo-class** styles an element based on its **state** or **position**. It starts with a **single colon** (`:`).
+
+```css
+selector:pseudo-class {
+  property: value;
+}
+```
+
+### User interaction states
+
+| Pseudo-class | Applies when |
+|---|---|
+| `:hover` | The mouse is over the element |
+| `:active` | The element is being clicked |
+| `:focus` | The element has keyboard or click focus |
+| `:focus-visible` | Focus should be shown (mainly keyboard focus) |
+| `:visited` | A link has been visited |
+| `:link` | A link has not been visited |
+
+```css
+a:hover {
+  color: crimson;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+input:focus {
+  outline: 2px solid dodgerblue;
+}
+```
+
+> **Link order (LVHA):** when styling links, write the rules in this order: `:link`, `:visited`, `:hover`, `:active`.
+
+### Form states
+
+| Pseudo-class | Applies when |
+|---|---|
+| `:checked` | A checkbox or radio is checked |
+| `:disabled` | A form control is disabled |
+| `:enabled` | A form control is enabled |
+| `:required` | A field is required |
+| `:valid` / `:invalid` | Input passes or fails validation |
+
+```css
+input:invalid {
+  border-color: red;
+}
+
+input[type="checkbox"]:checked + label {
+  font-weight: bold;
+}
+```
+
+### Structural pseudo-classes
+
+| Pseudo-class | Selects |
+|---|---|
+| `:first-child` | An element that is the first child of its parent |
+| `:last-child` | An element that is the last child of its parent |
+| `:nth-child(n)` | The nth child |
+| `:nth-of-type(n)` | The nth element of its type |
+| `:only-child` | An element that is the only child |
+| `:not(selector)` | Elements that do **not** match the selector |
+| `:empty` | Elements with no children |
+
+```css
+li:first-child { color: green; }
+li:last-child  { color: red; }
+
+/* Every other row */
+tr:nth-child(even) { background: #f2f2f2; }
+
+/* Every 3rd item */
+li:nth-child(3n) { font-weight: bold; }
+
+/* All buttons except disabled ones */
+button:not(:disabled) { cursor: pointer; }
+```
+
+---
+
+## Pseudo-elements
+
+A **pseudo-element** styles a **specific part** of an element, or inserts generated content. It starts with a **double colon** (`::`).
+
+```css
+selector::pseudo-element {
+  property: value;
+}
+```
+
+### Common pseudo-elements
+
+| Pseudo-element | What it styles |
+|---|---|
+| `::before` | Inserts content **before** the element's content |
+| `::after` | Inserts content **after** the element's content |
+| `::first-letter` | The first letter of a block of text |
+| `::first-line` | The first line of a block of text |
+| `::selection` | The part of text the user highlights |
+| `::placeholder` | The placeholder text in an input |
+| `::marker` | The bullet or number of a list item |
+
+### `::before` and `::after`
+
+These **require the `content` property**, even if it is an empty string.
+
+```css
+.note::before {
+  content: "💡 ";
+}
+
+.external-link::after {
+  content: " ↗";
+  color: gray;
+}
+```
+
+### Decorative element example
+
+```css
+.title {
+  position: relative;
+}
+
+.title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 3px;
+  background: crimson;
+}
+```
+
+### Other examples
+
+```css
+p::first-letter {
+  font-size: 3rem;
+  font-weight: bold;
+  float: left;
+  margin-right: 8px;
+}
+
+::selection {
+  background: yellow;
+  color: black;
+}
+
+input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+```
+
+### Pseudo-class vs Pseudo-element
+
+| | Pseudo-class | Pseudo-element |
+|---|---|---|
+| Syntax | `:hover` (one colon) | `::before` (two colons) |
+| Targets | An element in a certain **state** | A **part** of an element |
+| Example | `a:hover` | `p::first-line` |
+
+---
+
+## Transform
+
+The `transform` property changes the **shape, size and position** of an element visually **without affecting the layout** of other elements.
+
+### translate
+
+Moves an element along the X and/or Y axis.
+
+```css
+.box {
+  transform: translate(50px, 20px);   /* 50px right, 20px down */
+}
+
+.box-x { transform: translateX(100px); }
+.box-y { transform: translateY(-30px); }
+```
+
+### scale
+
+Makes an element larger or smaller. `1` is normal size.
+
+```css
+.box { transform: scale(1.5); }         /* 150% size */
+.box { transform: scale(2, 0.5); }      /* 2x wide, half height */
+.box { transform: scaleX(1.2); }
+```
+
+### rotate
+
+Rotates an element clockwise for positive values.
+
+```css
+.box { transform: rotate(45deg); }
+.box { transform: rotate(-90deg); }     /* counter-clockwise */
+```
+
+### skew
+
+Slants an element along the X and/or Y axis.
+
+```css
+.box { transform: skew(20deg, 10deg); }
+.box { transform: skewX(20deg); }
+.box { transform: skewY(10deg); }
+```
+
+### Combining transforms
+
+Separate multiple functions with spaces. They are applied **right to left**, so order matters.
+
+```css
+.box {
+  transform: translateX(50px) rotate(45deg) scale(1.2);
+}
+```
+
+### transform-origin
+
+Sets the point around which the transform happens (default is `center`).
+
+```css
+.box {
+  transform-origin: top left;
+  transform: rotate(30deg);
+}
+```
+
+### Summary
+
+| Function | Effect | Example |
+|---|---|---|
+| `translate(x, y)` | Move | `translate(20px, 10px)` |
+| `scale(x, y)` | Resize | `scale(1.5)` |
+| `rotate(angle)` | Rotate | `rotate(90deg)` |
+| `skew(x, y)` | Slant | `skew(15deg, 5deg)` |
+
+---
+
+## Transition
+
+The `transition` property makes a CSS change happen **smoothly over time** instead of instantly.
+
+### Properties
+
+| Property | What it does | Example |
+|---|---|---|
+| `transition-property` | Which property to animate | `background-color`, `transform`, `all` |
+| `transition-duration` | How long it takes | `0.3s`, `300ms` |
+| `transition-timing-function` | The speed curve | `ease`, `linear`, `ease-in`, `ease-out`, `ease-in-out` |
+| `transition-delay` | Wait before starting | `0.2s` |
+
+### Shorthand
+
+```css
+transition: property duration timing-function delay;
+```
+
+```css
+.button {
+  background: dodgerblue;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.button:hover {
+  background: navy;
+}
+```
+
+### Multiple transitions
+
+```css
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+```
+
+### Putting it together: transform + transition
+
+```html
+<div class="box"></div>
+```
+
+```css
+.box {
+  width: 100px;
+  height: 100px;
+  background: tomato;
+  transition: transform 0.5s ease-in-out, background 0.5s;
+}
+
+.box:hover {
+  transform: rotate(45deg) scale(1.3);
+  background: gold;
+}
+```
+
+### Key points
+
+- Put the `transition` on the **original** state of the element, so it animates both **in** and **out**.
+- Not every property can be animated. Numbers, colors and lengths work well. `display` does not.
+- For smooth performance, prefer animating `transform` and `opacity`.
+- Use `transition: all 0.3s` only for quick demos, as it can animate things you did not intend.
+
+---
+
+### Practice ideas
+
+1. Build a responsive card layout with **Grid** that goes from 1 to 2 to 4 columns using **media queries**.
+2. Create a navbar with **Flexbox** and add a `:hover` underline using `::after`.
+3. Make a button that lifts up on hover using `transform: translateY()` and `transition`.
+4. Style a table with `:nth-child(even)` striped rows.
+
 
 # 10. Best Practices
 
