@@ -1565,6 +1565,7 @@ A large `z-index` does not always escape the stacking context created by an ance
 Prefer readable selectors and proper source order. Use `!important` only when there is a clear reason.
 
 ---
+
 ## Table of Contents
 
 - [Flexbox](#flexbox)
@@ -1579,9 +1580,11 @@ Prefer readable selectors and proper source order. Use `!important` only when th
 
 ## Flexbox
 
-**Flexbox** (Flexible Box Layout) is a one-dimensional layout system. It arranges items in a **row** or a **column** and controls spacing, alignment and sizing.
+**Flexbox** (Flexible Box Layout) arranges items in a **row** or a **column** and controls their alignment and spacing.
 
-### Basic setup
+### `display: flex`
+
+Add `display: flex` to a parent element to turn it into a **flex container**. Its direct children become **flex items** and line up in a row by default.
 
 ```html
 <div class="container">
@@ -1597,54 +1600,117 @@ Prefer readable selectors and proper source order. Use `!important` only when th
 }
 ```
 
-The element with `display: flex` is the **flex container**. Its direct children are **flex items**.
+### The two axes
 
-### Main axis and cross axis
+Flexbox works along two axes:
 
-- **Main axis**: the direction items are laid out (default: left to right).
-- **Cross axis**: perpendicular to the main axis.
+- **Main axis**: the direction items are placed (by default the **X axis**, left to right).
+- **Cross axis**: perpendicular to the main axis (by default the **Y axis**, top to bottom).
 
-### Container properties
+```
+Default (flex-direction: row)
 
-| Property | What it does | Common values |
-|---|---|---|
-| `flex-direction` | Sets the main axis | `row`, `row-reverse`, `column`, `column-reverse` |
-| `flex-wrap` | Allows items to wrap onto new lines | `nowrap`, `wrap`, `wrap-reverse` |
-| `justify-content` | Aligns items along the **main** axis | `flex-start`, `center`, `flex-end`, `space-between`, `space-around`, `space-evenly` |
-| `align-items` | Aligns items along the **cross** axis | `stretch`, `flex-start`, `center`, `flex-end`, `baseline` |
-| `align-content` | Aligns multiple wrapped lines | `flex-start`, `center`, `space-between`, `stretch` |
-| `gap` | Space between items | `10px`, `1rem`, `10px 20px` |
+        Cross axis (Y)
+             ↓
+        ┌─────────────────────────┐
+        │ [1]  [2]  [3]           │  → Main axis (X)
+        └─────────────────────────┘
+```
+
+### `justify-content`
+
+Aligns items along the **main axis** (X axis by default).
+
+| Value | Result |
+|---|---|
+| `flex-start` | Items packed at the start (default) |
+| `center` | Items packed in the center |
+| `flex-end` | Items packed at the end |
+| `space-between` | Equal space **between** items; first and last touch the edges |
+| `space-around` | Equal space **around** each item |
+| `space-evenly` | Equal space between items and edges |
 
 ```css
 .container {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  gap: 16px;
 }
 ```
 
-### Item properties
+### `align-items`
 
-| Property | What it does |
+Aligns items along the **cross axis** (Y axis by default).
+
+| Value | Result |
 |---|---|
-| `flex-grow` | How much an item grows to fill extra space |
-| `flex-shrink` | How much an item shrinks when space is tight |
-| `flex-basis` | Starting size of the item before growing or shrinking |
-| `flex` | Shorthand for `flex-grow flex-shrink flex-basis` |
-| `align-self` | Overrides `align-items` for a single item |
-| `order` | Changes the visual order of an item (default `0`) |
+| `stretch` | Items stretch to fill the container height (default) |
+| `flex-start` | Items at the top |
+| `center` | Items vertically centered |
+| `flex-end` | Items at the bottom |
 
 ```css
-.item {
-  flex: 1;            /* grow equally to fill space */
+.container {
+  display: flex;
+  height: 300px;
+  align-items: center;
+}
+```
+
+> **Note:** `align-items` only shows a visible effect when the container has extra height (for example, a set `height`).
+
+### `flex-direction`
+
+Sets the direction of the **main axis**.
+
+| Value | Main axis | Result |
+|---|---|---|
+| `row` | X (left → right) | Items in a row (default) |
+| `row-reverse` | X (right → left) | Items in a row, reversed |
+| `column` | Y (top → bottom) | Items stacked vertically |
+| `column-reverse` | Y (bottom → top) | Items stacked vertically, reversed |
+
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+}
+```
+
+#### Axes swap with `column`
+
+When you use `flex-direction: column`, the axes **swap**:
+
+| | `row` (default) | `column` |
+|---|---|---|
+| Main axis | X (horizontal) | Y (vertical) |
+| Cross axis | Y (vertical) | X (horizontal) |
+| `justify-content` moves items | horizontally | **vertically** |
+| `align-items` moves items | vertically | **horizontally** |
+
+```css
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* now vertical */
+  align-items: center;       /* now horizontal */
+  height: 100vh;
+}
+```
+
+### `gap`
+
+Adds space **between** flex items, without adding space at the outer edges.
+
+```css
+.container {
+  display: flex;
+  gap: 20px;            /* same gap in both directions */
 }
 
-.item-special {
-  flex: 2;            /* takes twice as much space as flex: 1 items */
-  align-self: flex-end;
-  order: -1;          /* moves to the front */
+.container-2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 30px;       /* row-gap column-gap */
 }
 ```
 
@@ -1653,136 +1719,172 @@ The element with `display: flex` is the **flex container**. Its direct children 
 ```css
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;   /* center on X axis */
+  align-items: center;       /* center on Y axis */
   height: 100vh;
 }
 ```
-
-### Example: Simple navbar
-
-```css
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-}
-
-nav ul {
-  display: flex;
-  gap: 20px;
-  list-style: none;
-}
-```
-
-> **Tip:** Use Flexbox for one-dimensional layouts such as navbars, button groups and card rows. Use Grid when you need rows **and** columns together.
 
 ---
 
 ## CSS Grid
 
-**CSS Grid** is a two-dimensional layout system. It controls **rows and columns** at the same time.
+**CSS Grid** is a two-dimensional layout system. It lets you control **columns and rows** at the same time.
 
-### Basic setup
+### `display: grid`
+
+Add `display: grid` to a parent element to create a **grid container**. Its direct children become **grid items**.
+
+```html
+<div class="container">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+  <div>5</div>
+  <div>6</div>
+</div>
+```
 
 ```css
 .container {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
-  grid-template-rows: 100px 100px;
-  gap: 10px;
 }
 ```
 
-### The `fr` unit
+### `grid-template-columns`
 
-`fr` means a **fraction** of the available space.
+Defines the **number and width of columns**. Each value you write creates one column.
 
 ```css
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;  /* middle column is twice as wide */
+  grid-template-columns: 200px 200px 200px;   /* 3 columns, 200px each */
 }
 ```
 
-### `repeat()` and `minmax()`
+Use the `fr` unit to divide the available space into fractions:
 
 ```css
 .container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);          /* 3 equal columns */
+  grid-template-columns: 1fr 1fr 1fr;   /* 3 equal columns */
 }
 
-.responsive {
+.container-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: 1fr 2fr;       /* second column is twice as wide */
 }
 ```
 
-The `responsive` example creates as many columns as will fit, each at least `200px` wide, with no media queries needed.
-
-### Container properties
-
-| Property | What it does |
-|---|---|
-| `grid-template-columns` | Defines column sizes |
-| `grid-template-rows` | Defines row sizes |
-| `gap` / `row-gap` / `column-gap` | Space between rows and columns |
-| `justify-items` | Aligns items horizontally inside their cells |
-| `align-items` | Aligns items vertically inside their cells |
-| `justify-content` | Aligns the whole grid horizontally in the container |
-| `align-content` | Aligns the whole grid vertically in the container |
-| `grid-auto-rows` | Size of rows created automatically |
-
-### Placing items
-
-Grid lines are numbered starting from **1**.
+Use `repeat()` to avoid writing the same value many times:
 
 ```css
-.header {
-  grid-column: 1 / 4;   /* from line 1 to line 4 (spans 3 columns) */
-}
-
-.sidebar {
-  grid-row: 2 / 4;      /* spans 2 rows */
-}
-
-.wide {
-  grid-column: span 2;  /* span 2 columns from wherever it starts */
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* same as 1fr 1fr 1fr */
 }
 ```
 
-### Grid template areas
+Items automatically flow into new **rows** once a row is full.
 
-Name the areas of your layout, then place items by name.
+### `gap`
+
+Adds space between rows and columns.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;               /* same gap for rows and columns */
+}
+
+.container-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px 30px;          /* row-gap column-gap */
+}
+```
+
+You can also set them separately with `row-gap` and `column-gap`.
+
+### Grid lines
+
+Grid lines are numbered starting from **1**. A grid with 3 columns has **4 column lines**.
+
+```
+ Line 1   Line 2   Line 3   Line 4
+   |        |        |        |
+   |  col 1 |  col 2 |  col 3 |
+   |        |        |        |
+```
+
+### `grid-column` and `span`
+
+Controls which columns an item covers.
+
+```css
+.item {
+  grid-column: 1 / 3;      /* starts at line 1, ends at line 3 (covers 2 columns) */
+}
+```
+
+Using `span` means "cover this many columns":
+
+```css
+.item {
+  grid-column: span 2;     /* covers 2 columns from wherever it starts */
+}
+
+.item-2 {
+  grid-column: 2 / span 2; /* starts at line 2 and covers 2 columns */
+}
+```
+
+### `grid-row` and `span`
+
+Controls which rows an item covers. It works the same way as `grid-column`.
+
+```css
+.item {
+  grid-row: 1 / 3;         /* starts at row line 1, ends at line 3 (covers 2 rows) */
+}
+
+.item-2 {
+  grid-row: span 2;        /* covers 2 rows */
+}
+```
+
+### Example: Simple page layout
+
+```html
+<div class="layout">
+  <header>Header</header>
+  <aside>Sidebar</aside>
+  <main>Main</main>
+</div>
+```
 
 ```css
 .layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows: 80px 1fr 60px;
-  grid-template-areas:
-    "header  header"
-    "sidebar main"
-    "footer  footer";
-  min-height: 100vh;
+  grid-template-columns: 1fr 3fr;
+  gap: 16px;
 }
 
-.header  { grid-area: header; }
-.sidebar { grid-area: sidebar; }
-.main    { grid-area: main; }
-.footer  { grid-area: footer; }
+header {
+  grid-column: span 2;     /* header covers both columns */
+}
 ```
 
-### Flexbox vs Grid
+### Summary
 
-| Flexbox | Grid |
-|---|---|
-| One dimension (row **or** column) | Two dimensions (rows **and** columns) |
-| Content-first: size comes from the items | Layout-first: you define the structure |
-| Best for components | Best for page layouts |
+| Property | Purpose | Example |
+|---|---|---|
+| `grid-template-columns` | Create columns and set their widths | `repeat(3, 1fr)` |
+| `gap` | Space between rows and columns | `20px` |
+| `grid-column` | Which columns an item covers | `1 / 3` or `span 2` |
+| `grid-row` | Which rows an item covers | `1 / 3` or `span 2` |
 
 ---
 
@@ -2212,14 +2314,3 @@ transition: property duration timing-function delay;
 3. Make a button that lifts up on hover using `transform: translateY()` and `transition`.
 4. Style a table with `:nth-child(even)` striped rows.
 
-
-# 10. Best Practices
-
-- Use external CSS for multi-page projects.
-- Apply a consistent `box-sizing` rule.
-- Use meaningful class names.
-- Keep selector specificity manageable.
-- Use relative units where appropriate.
-- Set a readable line height for paragraphs.
-- Organize CSS into logical sections.
-- Add comments for complex rules.
